@@ -248,8 +248,8 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 exec i3-msg 'workspace $tag1; exec alacritty'
 exec i3-msg 'workspace $tag7; exec spotify'
-exec i3-msg 'workspace $tag9; exec firefox-developer-edition --new-instance --new-window inbox.google.com'
-exec i3-msg 'workspace $tag10; exec discord-canary'
+exec i3-msg 'workspace $tag9; exec firefox-developer-edition --new-window --url https://gmail.com --url https://messages.android.com/'
+exec i3-msg 'workspace $tag10; exec discord'
 exec i3-msg 'workspace $tag10; exec signal-desktop'
 for_window [class="Spotify"] move to workspace $tag7
 

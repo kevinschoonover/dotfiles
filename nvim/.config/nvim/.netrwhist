@@ -1,10 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/home/kschoon/git-local/phoenix/src/routes'
-let g:netrw_dirhist_2='/home/kschoon/notes'
-let g:netrw_dirhist_3='/home/kschoon/git-local/phoenix/src/routes'
-let g:netrw_dirhist_4='/home/kschoon/git-local/phoenix/node_modules'
-let g:netrw_dirhist_5='/home/kschoon/git-local/phoenix/node_modules/@types/koa-passport'
-let g:netrw_dirhist_6='/home/kschoon/git-local/phoenix/src/routes'
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/kschoon/git-local/school/cs3500-plat/hw-7'
+let g:netrw_dirhist_2='/home/kschoon/git-local/school/park-king/frontend/src/dashboard'
+let g:netrw_dirhist_3='/home/kschoon/.config/polybar'
+let g:netrw_dirhist_4='/home/kschoon/git-local/school/philo3125-creative-project/react-questionnaire'
+let g:netrw_dirhist_5='/home/kschoon/git-local/school/park-king/frontend/src'
+let g:netrw_dirhist_6='/home/kschoon/git-local/research/ceads-galaxy-api/galaxy/mothership/entity'
 let g:netrw_dirhist_7='/home/kschoon/notes'
-let g:netrw_dirhist_8='/home/kschoon/git-local/phoenix/node_modules/@types/passport-facebook'

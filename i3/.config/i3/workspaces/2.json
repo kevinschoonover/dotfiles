@@ -4,21 +4,20 @@
     "current_border_width": 2,
     "floating": "auto_off",
     "geometry": {
-       "height": 768,
-       "width": 1024,
+       "height": 1280,
+       "width": 1707,
        "x": 0,
        "y": 0
     },
-    "name": "term2",
+    "name": "Alacritty",
     "percent": 1,
     "swallows": [
        {
        "class": "^Alacritty$",
-       "instance": "^alacritty$",
-       // "title": "^kschoon\\@honeypot\\:\\~$",
-       "transient_for": "^$"
+       "instance": "^Alacritty$",
+       "transient_for": "^$",
+       // "title": "^Alacritty$"
        }
     ],
     "type": "con"
 }
-

@@ -60,7 +60,7 @@ set undofile                      " persistent undos - undo after you re-open th
 " => Vim Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Stop messing with the cursor
-set guicursor=
+" set guicursor=
 
 " Set hidden
 set hidden
@@ -251,6 +251,15 @@ autocmd FileType javascript :setlocal sw=2 ts=2 sts=2 " Two spaces for HTML file
 autocmd FileType typescript :setlocal makeprg=tsc sw=2 ts=2 sts=2
 
 autocmd FileType tex :setlocal spell sw=2 ts=2 sts=2
+autocmd FileType yacc :setlocal spell sw=2 ts=2 sts=2
 autocmd FileType tex :syntax spell toplevel
 
 set viminfo='20,<1000
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+
