@@ -249,7 +249,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec i3-msg 'workspace $tag1; exec alacritty'
 exec i3-msg 'workspace $tag7; exec spotify'
 exec i3-msg 'workspace $tag9; exec firefox-developer-edition --new-window --url https://gmail.com --url https://messages.android.com/'
-exec i3-msg 'workspace $tag10; exec discord'
+exec i3-msg 'workspace $tag10; exec discord-canary'
 exec i3-msg 'workspace $tag10; exec signal-desktop'
 for_window [class="Spotify"] move to workspace $tag7
 
@@ -259,5 +259,7 @@ for_window [class="Spotify"] move to workspace $tag7
 set $main_locker $HOME/scripts/locker_2.sh $HOME/scripts/locker.sh
 exec $main_locker
 exec ~/scripts/random_desktop.sh &
+exec --no-startup-id ~/scripts/i3-battery-popup -n
+
 bindsym --release $mod+Shift+z exec "scrot -s ~/Pictures/%b%d_%H:%M:%S.png && notify-send 'Screenshot Taken'"
 
