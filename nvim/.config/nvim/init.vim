@@ -44,11 +44,15 @@ let g:ale_typescript_tslint_config_path = ''
 
 let g:ale_completion_enabled = 1
 
+set completeopt=menu,menuone,preview,noselect,noinsert
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " How many lines of history VIM has to remember
 set history=500
+
+set number
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file

@@ -169,16 +169,16 @@ bindsym $mod+r mode "resize"
 #         background #000000
 #         statusline #ffffff
 #         separator  #666666
-# 
+#
 #         # Type             border  background font
 #         focused_workspace  #008fff #007fff #ffffff
 #         active_workspace   #333333 #5f676a #ffffff
 #         inactive_workspace #333333 #222222 #888888
 #         urgent_workspace   #aa0000 #990000 #ffffff
 #     }
-# 
+#
 #     font pango:DejaVu Sans Mono, FontAwesome 10
-# 
+#
 #     # i3bar position
 #     position top
 #     # Using custom i3status.conf
@@ -196,7 +196,7 @@ mode "$mode_system" {
         bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
         bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
         bindsym r exec --no-startup-id systemctl reboot, mode "default"
-        bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+        bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
 
         # back to normal: Enter or Escape
         bindsym Return mode "default"
@@ -248,7 +248,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 exec i3-msg 'workspace $tag1; exec alacritty'
 exec i3-msg 'workspace $tag7; exec spotify'
-exec i3-msg 'workspace $tag9; exec firefox-developer-edition --new-window --url https://gmail.com --url https://messages.android.com/'
+exec i3-msg 'workspace $tag9; exec google-chrome-unstable'
 exec i3-msg 'workspace $tag10; exec discord-canary'
 exec i3-msg 'workspace $tag10; exec signal-desktop'
 for_window [class="Spotify"] move to workspace $tag7
@@ -262,4 +262,3 @@ exec ~/scripts/random_desktop.sh &
 exec --no-startup-id ~/scripts/i3-battery-popup -n
 
 bindsym --release $mod+Shift+z exec "scrot -s ~/Pictures/%b%d_%H:%M:%S.png && notify-send 'Screenshot Taken'"
-

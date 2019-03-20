@@ -9,17 +9,15 @@
        "x": 0,
        "y": 0
     },
-    "name": "Firefox Nightly",
+    "name": "Google Chrome",
     "percent": 1,
+    "percent": 0.5,
     "swallows": [
        {
-        "class": "^Nightly$",
-        "instance": "^Navigator$",
-       // "title": "^Firefox\\ Nightly$",
-        "transient_for": "^$",
-        // "window_role": "^browser$"
+       "class": "^Google\\-chrome\\-unstable$",
+       "instance": "^google\\-chrome\\-unstable$",
+       "window_role": "^browser$"
        }
     ],
     "type": "con"
 }
-
