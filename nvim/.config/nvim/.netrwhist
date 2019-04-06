@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =4
 let g:netrw_dirhist_1='/home/kschoon/git-local/pichacks/nfc_app/ignite'
 let g:netrw_dirhist_2='/home/kschoon/git-local/sigweb/phoenix/src/controllers'
 let g:netrw_dirhist_3='/home/kschoon/git-local/school/jeeves/clients/admin/src'
+let g:netrw_dirhist_4='/home/kschoon/git-local/school/2019-sp-1a-game2-ksyh3/Joueur.py/games/chess'

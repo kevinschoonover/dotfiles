@@ -21,6 +21,7 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tpope/vim-fugitive'
 Plug 'leafgarland/typescript-vim'
 Plug 'posva/vim-vue'
+Plug 'lervag/vimtex'
 call plug#end()
 
 
@@ -35,6 +36,7 @@ let g:ale_fixers = {
 \ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \ 'javascript': ['eslint', 'prettier'],
 \ 'typescript': ['tslint', 'prettier'],
+\ 'python': ['isort', 'autopep8']
 \}
 let g:ale_fix_on_save = 1
 
@@ -44,15 +46,16 @@ let g:ale_typescript_tslint_config_path = ''
 
 let g:ale_completion_enabled = 1
 
-set completeopt=menu,menuone,preview,noselect,noinsert
+" vimtex
+let g:tex_flavor = 'latex'
+let g:vimtex_view_general_viewer = 'evince'
 
+set completeopt=menu,menuone,preview,noselect,noinsert
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " How many lines of history VIM has to remember
 set history=500
-
-set number
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
