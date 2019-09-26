@@ -16,11 +16,10 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'w0rp/ale' " Asynchronous Lint Engine
-Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' } " Automatic Code Formatter
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tpope/vim-fugitive'
 Plug 'leafgarland/typescript-vim'
-Plug 'posva/vim-vue'
+Plug 'peitalin/vim-jsx-typescript'
 Plug 'lervag/vimtex'
 call plug#end()
 
@@ -36,13 +35,15 @@ let g:ale_fixers = {
 \ '*': ['remove_trailing_lines', 'trim_whitespace'],
 \ 'javascript': ['eslint', 'prettier'],
 \ 'typescript': ['tslint', 'prettier'],
-\ 'python': ['isort', 'autopep8']
+\ 'python': ['isort', 'autopep8'],
+\ 'cpp': ['clang-format'],
 \}
 let g:ale_fix_on_save = 1
 
 " Fix tslint errors
 let g:ale_typescript_tslint_use_global = 0
 let g:ale_typescript_tslint_config_path = ''
+let g:ale_typescript_tslint_executable = 'tslint'
 
 let g:ale_completion_enabled = 1
 
@@ -260,15 +261,18 @@ command! Wq wq
 command! W w
 
 " Remove trailing whitespace at save
-autocmd BufWritePre *.py,*.vim,*.css,*.js,*.html,*.cpp,*.c,*.java,*.go,*.rs,*.ts,*.cljs,*.clj :%s/\s\+$//e
+autocmd BufWritePre *.py,*.vim,*.css,*.js,*.html,*.cpp,*.c,*.java,*.go,*.rs,*.ts,*.cljs,*.clj,*.vue,*.tsx,*.ts :%s/\s\+$//e
 " Fix for Django templates not being treated as HTML files
 autocmd BufNewFile,BufRead *.vue :setlocal syntax=html sw=2 ts=2 sts=2
 autocmd BufNewFile,BufRead *.html :setlocal syntax=html sw=2 ts=2 sts=2
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx sw=2 ts=2 sts=2
 
 " File specific tab options
 autocmd FileType html :setlocal sw=2 ts=2 sts=2 " Two spaces for HTML files "
 autocmd FileType javascript :setlocal sw=2 ts=2 sts=2 " Two spaces for HTML files "
 autocmd FileType typescript :setlocal makeprg=tsc sw=2 ts=2 sts=2
+autocmd FileType python :setlocal sw=4 ts=4 sts=4
+
 
 autocmd FileType tex :setlocal spell sw=2 ts=2 sts=2
 autocmd FileType yacc :setlocal spell sw=2 ts=2 sts=2
