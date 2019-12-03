@@ -222,31 +222,7 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position top
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
-
-bar {
-    position bottom
-    workspace_buttons no
-
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while i3status -c ~/.config/sway/i3status.conf; do sleep 1; done
-
-    colors {
-        statusline #ffffff
-        background #323232
-    }
+    swaybar_command waybar
 }
 
 #
@@ -297,15 +273,15 @@ bindsym XF86AudioPrev exec playerctl previous
 ###
 bindsym $mod+m move workspace to output left
 
-bindsym --release Print exec "grim ~/Pictures/$(date +'%Y-%m-%d-%H:%M:%S_grim.png') && notify-send 'Screenshot Taken'"
-bindsym --release Shift+Print exec grim -g "$(slurp)" ~/Pictures/$(date +'%Y-%m-%d-%H:%M:%S_slurp.png')
+bindsym --release Print exec "grim ~/Pictures/screenshots/$(date +'%Y-%m-%d-%H:%M:%S_grim.png') && notify-send 'Screenshot Taken'"
+bindsym --release Shift+Print exec grim -g "$(slurp)" ~/Pictures/screenshots/$(date +'%Y-%m-%d-%H:%M:%S_slurp.png')
 
 ###
 # Start-up Applications.
 ###
 exec swaymsg 'workspace $tag1; exec alacritty'
 exec swaymsg 'workspace $tag7; exec spotify'
-exec swaymsg 'workspace $tag9; exec google-chrome-unstable'
+exec swaymsg 'workspace $tag9; exec firefox-developer-edition'
 exec swaymsg 'workspace $tag10; exec discord-canary'
 exec swaymsg 'workspace $tag10; exec wire-desktop'
 
