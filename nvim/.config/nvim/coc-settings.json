@@ -1,3 +1,5 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [ "python", "typescript", "json", "html", "css", "html" ]
+  "coc.preferences.formatOnSaveFiletypes": [ "python", "typescript", "json", "html", "css", "html", "rust"],
+  "python.formatting.provider": "black",
+  "python.sortImports.path": "isort"
 }

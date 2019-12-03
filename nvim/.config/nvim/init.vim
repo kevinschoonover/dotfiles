@@ -16,6 +16,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'} " Conquer of Completion
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'tpope/vim-fugitive'
 Plug 'leafgarland/typescript-vim'
@@ -27,6 +28,9 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " -> Plugin Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" dracula
+set termguicolors
+
 " vimtex
 let g:tex_flavor = 'latex'
 let g:vimtex_view_general_viewer = 'evince'
@@ -385,6 +389,7 @@ autocmd FileType html :setlocal sw=2 ts=2 sts=2 " Two spaces for HTML files "
 autocmd FileType javascript :setlocal sw=2 ts=2 sts=2 " Two spaces for HTML files "
 autocmd FileType typescript :setlocal makeprg=tsc sw=2 ts=2 sts=2
 autocmd FileType python :setlocal sw=4 ts=4 sts=4
+autocmd FileType yamal :setlocal sw=2 ts=2 sts=2 " Two spaces for YAML files "
 
 
 autocmd FileType tex :setlocal spell sw=2 ts=2 sts=2
