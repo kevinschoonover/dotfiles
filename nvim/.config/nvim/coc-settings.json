@@ -1,5 +1,6 @@
 {
   "coc.preferences.formatOnSaveFiletypes": [ "python", "typescript", "json", "html", "css", "html", "rust"],
   "python.formatting.provider": "black",
-  "python.sortImports.path": "isort"
+  "python.sortImports.path": "isort",
+  "eslint.filetypes": ["typescript", "typescriptreact", "javascript", "react"]
 }
