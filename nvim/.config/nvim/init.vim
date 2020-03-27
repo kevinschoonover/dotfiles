@@ -378,7 +378,7 @@ command! Wq wq
 command! W w
 
 " Remove trailing whitespace at save
-autocmd BufWritePre *.py,*.vim,*.css,*.js,*.html,*.cpp,*.c,*.java,*.go,*.rs,*.ts,*.cljs,*.clj,*.vue,*.tsx,*.ts :%s/\s\+$//e
+autocmd BufWritePre *.yml,*.py,*.vim,*.css,*.js,*.html,*.cpp,*.c,*.java,*.go,*.rs,*.ts,*.cljs,*.clj,*.vue,*.tsx,*.ts :%s/\s\+$//e
 " Fix for Django templates not being treated as HTML files
 autocmd BufNewFile,BufRead *.vue :setlocal syntax=html sw=2 ts=2 sts=2
 autocmd BufNewFile,BufRead *.html :setlocal syntax=html sw=2 ts=2 sts=2
@@ -389,7 +389,7 @@ autocmd FileType html :setlocal sw=2 ts=2 sts=2 " Two spaces for HTML files "
 autocmd FileType javascript :setlocal sw=2 ts=2 sts=2 " Two spaces for HTML files "
 autocmd FileType typescript :setlocal makeprg=tsc sw=2 ts=2 sts=2
 autocmd FileType python :setlocal sw=4 ts=4 sts=4
-autocmd FileType yamal :setlocal sw=2 ts=2 sts=2 " Two spaces for YAML files "
+autocmd FileType yaml :setlocal sw=2 ts=2 sts=2 " Two spaces for YAML files "
 
 
 autocmd FileType tex :setlocal spell sw=2 ts=2 sts=2
