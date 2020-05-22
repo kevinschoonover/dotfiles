@@ -17,7 +17,9 @@ set $right l
 set $term alacritty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
-set $menu dmenu_path | dmenu | xargs swaymsg exec
+set $highlight #3daee9
+set $prompt #18b218
+set $menu bemenu-run -n --fn $uifont -b -p "▶" --tf "$prompt" --hf "$highlight" --sf "$highlight" --scf "$highlight" | xargs swaymsg exec
 
 ### Output configuration
 #
@@ -287,7 +289,7 @@ bindsym --release Shift+Print exec grim -g "$(slurp)" ~/Pictures/screenshots/$(d
 exec swaymsg 'workspace $tag1; exec alacritty'
 exec swaymsg 'workspace $tag7; exec spotify'
 exec swaymsg 'workspace $tag9; exec firefox-developer-edition'
-exec swaymsg 'workspace $tag10; exec discord-canary'
+exec swaymsg 'workspace $tag10; exec discord'
 exec swaymsg 'workspace $tag10; exec wire-desktop'
 
 include /etc/sway/config.d/*
