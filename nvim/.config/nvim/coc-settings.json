@@ -4,5 +4,17 @@
   "python.sortImports.path": "isort",
   "python.venvPath": "~/.cache/pypoetry/virtualenvs",
   "eslint.filetypes": ["typescript", "typescriptreact", "javascript", "react"],
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "languageserver": {
+    "terraform": {
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": [
+          "terraform",
+          "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  }
 }

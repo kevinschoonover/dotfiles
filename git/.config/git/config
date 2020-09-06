@@ -53,3 +53,5 @@
 [user]
 	email = me@kschoon.me
 	name = Kevin Schoonover
+[pull]
+	rebase = true
