@@ -1,5 +1,13 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [ "python", "typescript", "json", "html", "css", "html", "rust"],
+  "coc.preferences.formatOnSaveFiletypes": [
+    "python",
+    "typescript",
+    "json",
+    "html",
+    "css",
+    "html",
+    "rust"
+  ],
   "python.formatting.provider": "black",
   "python.sortImports.path": "isort",
   "python.venvPath": "~/.cache/pypoetry/virtualenvs",
@@ -7,14 +15,12 @@
   "eslint.autoFixOnSave": true,
   "languageserver": {
     "terraform": {
-      "command": "terraform-ls",
+      "command": "terraform-lsp",
       "args": ["serve"],
-      "filetypes": [
-          "terraform",
-          "tf"
-      ],
+      "filetypes": ["terraform", "tf"],
       "initializationOptions": {},
       "settings": {}
     }
   }
 }
+
