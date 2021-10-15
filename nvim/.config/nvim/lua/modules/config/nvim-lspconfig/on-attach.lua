@@ -1,6 +1,22 @@
+-- https://www.reddit.com/r/neovim/comments/jvisg5/lets_talk_formatting_again/
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+  if client.resolved_capabilities.document_formatting then
+    vim.cmd [[
+        augroup Format
+          au! * <buffer>
+          au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)
+        augroup END
+      ]]
+  end
+
+      -- So that the only client with format capabilities is efm
+  if client.name ~= 'efm' then
+      client.resolved_capabilities.document_formatting = false
+  end
+
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -31,3 +47,4 @@ local on_attach = function(client, bufnr)
 end
 
 return on_attach
+
