@@ -1,8 +1,59 @@
+require('nvim-treesitter.configs').setup {
+  highlight = {
+    enable = true, -- false will disable the whole extension
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = 'gnn',
+      node_incremental = 'grn',
+      scope_incremental = 'grc',
+      node_decremental = 'grm',
+    },
+  },
+  indent = {
+    enable = true,
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        [']m'] = '@function.outer',
+        [']]'] = '@class.outer',
+      },
+      goto_next_end = {
+        [']M'] = '@function.outer',
+        [']['] = '@class.outer',
+      },
+      goto_previous_start = {
+        ['[m'] = '@function.outer',
+        ['[['] = '@class.outer',
+      },
+      goto_previous_end = {
+        ['[M'] = '@function.outer',
+        ['[]'] = '@class.outer',
+      },
+    },
+  },
+}
+
+
 return function()
-  local lspconfig = require 'lspconfig'
-  local lspinstall = require 'lspinstall'
-  local on_attach = require 'modules.config.nvim-lspconfig.on-attach'
-  local format_config = require 'modules.config.nvim-lspconfig.format'
+  local lspconfig = require'lspconfig'
+  local on_attach = dofile('/home/kschoon/.config/nvim/lua/modules/config/nvim-lspconfig/on-attach.lua')
+  local format_config = dofile('/home/kschoon/.config/nvim/lua/modules/config/nvim-lspconfig/format.lua')
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
@@ -23,14 +74,13 @@ return function()
           workspace = { library = vim.list_extend({ [vim.fn.expand '$VIMRUNTIME/lua'] = true }, {}) },
         },
       },
-    },
+    }, 
+    'rust_analyzer', 'pyright', 'tsserver', 'gopls', 'rnix'
   }
 
   -- Setup servers
   local function setup_servers()
-    lspinstall.setup()
-    local installed_servers = lspinstall.installed_servers()
-    for _, server in pairs(installed_servers) do
+    for _, server in ipairs(servers) do
       local config = servers[server] or { root_dir = lspconfig.util.root_pattern { '.git/', '.' } }
       config.capabilities = capabilities
       config.on_attach = on_attach

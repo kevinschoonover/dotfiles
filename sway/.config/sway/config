@@ -24,7 +24,7 @@ set $menu bemenu-run -m 1 -n --fn $uifont -b -p "▶" --tf "$prompt" --hf "$high
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg ~/.config/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
@@ -257,9 +257,9 @@ bindsym $mod+Home mode "$mode_system"
 ###
 # Pulse Audio controls
 ###
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 5 #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 5 #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pamixer -t # mute sound
 
 ###
 # Screen Brightness controls
