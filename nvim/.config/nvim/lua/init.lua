@@ -1,3 +1,8 @@
+function is_directory(path)
+  local stat = vim.loop.fs_stat(path)
+  return stat and stat.type == "file" or false
+end
+
 -- ref: https://github.com/martinsione/dotfiles/tree/master/src/.config/nvim
 --Set highlight on search
 vim.o.hlsearch = false
@@ -13,10 +18,27 @@ vim.o.breakindent = true
 
 --Save undo history
 vim.opt.undofile = true
+local undo_dir = vim.fn.stdpath 'data' .. '/undo'
+if not is_directory(undo_dir) then
+  vim.fn.mkdir(undo_dir, "p")
+end
+vim.opt.backupdir = undo_dir
 
 --Backup files
---vim.opt.backup = true
+vim.opt.backup = true
+local backup_dir = vim.fn.stdpath 'data' .. '/backups'
+if not is_directory(backup_dir) then
+  vim.fn.mkdir(backup_dir, "p")
+end
+vim.opt.backupdir = backup_dir
 
+
+-- gutentags
+local tags_path = vim.fn.stdpath 'data' .. '/tags'
+if not is_directory(tags_path) then
+  vim.fn.mkdir(tags_path, "p")
+end
+vim.g.gutentags_cache_dir = tags_path
 
 --Case insensitive searching UNLESS /C or capital in search
 vim.o.ignorecase = true
