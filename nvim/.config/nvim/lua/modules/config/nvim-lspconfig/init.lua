@@ -79,6 +79,7 @@ return function()
 		tsserver = {},
 		gopls = {},
 		rnix = {},
+		graphql = {},
 	}
 
 	-- Setup servers

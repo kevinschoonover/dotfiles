@@ -24,6 +24,9 @@ vim.opt.shiftwidth = 2
 vim.opt.shiftround = true
 vim.opt.expandtab = true
 
+-- use system clipboard
+vim.opt.clipboard = "unnamedplus"
+
 --Save undo history
 vim.opt.undofile = true
 local undo_dir = vim.fn.stdpath("data") .. "/undo"

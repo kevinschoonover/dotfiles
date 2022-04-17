@@ -23,6 +23,11 @@ local isort = {
 	formatStdin = true,
 }
 
+local hclfmt = {
+	formatCommand = "hclfmt",
+	formatStdin = true,
+}
+
 local pylint = {
 	lintCommand = "`poetry env info -p`pylint --output-format text --score no --msg-template {path}:{line}:{column}:{C}:{msg} ${INPUT}",
 	lintStdin = false,
@@ -55,4 +60,5 @@ return {
 	typescriptreact = { prettier, eslint },
 	yaml = { prettier },
 	python = { black, isort, pylint },
+	hcl = { hclfmt },
 }
