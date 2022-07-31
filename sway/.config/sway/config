@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term alacritty
+set $term kitty
 # Your preferred application launcher
 # Note: it's recommended that you pass the final command to sway
 set $highlight #3daee9
@@ -286,9 +286,10 @@ bindsym --release Shift+Print exec exec grim -g "$(slurp)" - | wl-copy && notify
 ###
 # Start-up Applications.
 ###
-exec swaymsg 'workspace $tag1; exec alacritty'
-exec swaymsg 'workspace $tag7; exec alacritty -e spt'
-exec swaymsg 'workspace $tag9; exec firefox-developer-edition'
-exec swaymsg 'workspace $tag10; exec discord'
+exec swaymsg 'workspace $tag1; exec kitty'
+exec swaymsg 'workspace $tag9; exec google-chrome-stable'
+# work around for wayland + nvidia rendering blank screen for discord
+# https://github.com/NixOS/nixpkgs/issues/159267
+exec swaymsg 'workspace $tag10; exec discord --use-gl=desktop'
 
 include /etc/sway/config.d/*
