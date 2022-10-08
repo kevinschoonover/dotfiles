@@ -3,18 +3,18 @@
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
-	if client.resolved_capabilities.document_formatting then
+	if client.server_capabilities.documentFormattingProvider then
 		vim.cmd([[
         augroup Format
           au! * <buffer>
-          au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)
+          au BufWritePre <buffer> lua vim.lsp.buf.format()
         augroup END
       ]])
 	end
 
 	-- So that the only client with format capabilities is efm
 	if client.name ~= "gopls" and client.name ~= "go" and client.name ~= "efm" and client.name ~= "rnix" then
-		client.resolved_capabilities.document_formatting = false
+		client.server_capabilities.document_formatting = false
 	end
 
 	require("lsp_signature").on_attach()
