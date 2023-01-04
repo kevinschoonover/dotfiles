@@ -1,6 +1,9 @@
+-- https://github.com/ThePrimeagen/init.lua
+-- https://github.com/nvim-lua/kickstart.nvim
+--
 function is_directory(path)
-	local stat = vim.loop.fs_stat(path)
-	return stat and stat.type == "file" or false
+  local stat = vim.loop.fs_stat(path)
+  return stat and stat.type == "file" or false
 end
 
 -- ref: https://github.com/martinsione/dotfiles/tree/master/src/.config/nvim
@@ -31,7 +34,7 @@ vim.opt.clipboard = "unnamedplus"
 vim.opt.undofile = true
 local undo_dir = vim.fn.stdpath("data") .. "/undo"
 if not is_directory(undo_dir) then
-	vim.fn.mkdir(undo_dir, "p")
+  vim.fn.mkdir(undo_dir, "p")
 end
 vim.opt.backupdir = undo_dir
 
@@ -39,14 +42,14 @@ vim.opt.backupdir = undo_dir
 vim.opt.backup = true
 local backup_dir = vim.fn.stdpath("data") .. "/backups"
 if not is_directory(backup_dir) then
-	vim.fn.mkdir(backup_dir, "p")
+  vim.fn.mkdir(backup_dir, "p")
 end
 vim.opt.backupdir = backup_dir
 
 -- gutentags
 local tags_path = vim.fn.stdpath("data") .. "/tags"
 if not is_directory(tags_path) then
-	vim.fn.mkdir(tags_path, "p")
+  vim.fn.mkdir(tags_path, "p")
 end
 vim.g.gutentags_cache_dir = tags_path
 
@@ -55,7 +58,7 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 
 --Decrease update time
-vim.o.updatetime = 250
+vim.o.updatetime = 50
 vim.wo.signcolumn = "yes"
 
 --Set colorscheme (order is important here)
@@ -65,9 +68,9 @@ vim.cmd([[colorscheme onedark]])
 
 --Set statusbar
 vim.g.lightline = {
-	colorscheme = "onedark",
-	active = { left = { { "mode", "paste" }, { "gitbranch", "readonly", "filename", "modified" } } },
-	component_function = { gitbranch = "fugitive#head" },
+  colorscheme = "onedark",
+  active = { left = { { "mode", "paste" }, { "gitbranch", "readonly", "filename", "modified" } } },
+  component_function = { gitbranch = "fugitive#head" },
 }
 
 --Remap space as leader key
@@ -101,4 +104,5 @@ vim.g.indent_blankline_filetype_exclude = { "help", "packer" }
 vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 
-dofile("/home/kschoon/.config/nvim/lua/modules/init.lua")
+require("plugins")
+require("modules.init")
