@@ -14,7 +14,7 @@ local on_attach = function(client, bufnr)
 
 	-- So that the only client with format capabilities is efm
 	if client.name ~= "gopls" and client.name ~= "go" and client.name ~= "efm" and client.name ~= "rnix" then
-		client.server_capabilities.document_formatting = false
+		client.server_capabilities.documentFormattingProvider = false
 	end
 
 	require("lsp_signature").on_attach()
