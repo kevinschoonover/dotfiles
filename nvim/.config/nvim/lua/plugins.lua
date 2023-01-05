@@ -42,6 +42,11 @@ require("packer").startup(function(use)
       -- nvim
       { 'folke/neodev.nvim' },
 
+      -- custom LSPs based on binaries
+      { 'jose-elias-alvarez/null-ls.nvim' },
+      -- schemastore support for autocompletion of json
+      { "b0o/schemastore.nvim" },
+
       -- Useful status updates for LSP
       { 'j-hui/fidget.nvim' },
 

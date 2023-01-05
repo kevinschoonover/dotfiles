@@ -106,3 +106,4 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 require("plugins")
 require("modules.init")
+require("filetype")

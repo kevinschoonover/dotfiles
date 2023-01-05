@@ -154,6 +154,11 @@ _G.packer_plugins = {
     path = "/home/kschoon/.local/share/nvim/site/pack/packer/start/neodev.nvim",
     url = "https://github.com/folke/neodev.nvim"
   },
+  ["null-ls.nvim"] = {
+    loaded = true,
+    path = "/home/kschoon/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
+    url = "https://github.com/jose-elias-alvarez/null-ls.nvim"
+  },
   ["nvim-cmp"] = {
     loaded = true,
     path = "/home/kschoon/.local/share/nvim/site/pack/packer/start/nvim-cmp",
@@ -188,6 +193,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kschoon/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
+  },
+  ["schemastore.nvim"] = {
+    loaded = true,
+    path = "/home/kschoon/.local/share/nvim/site/pack/packer/start/schemastore.nvim",
+    url = "https://github.com/b0o/schemastore.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
