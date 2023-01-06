@@ -9,11 +9,6 @@ require('mason.settings').set({
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-  'rust_analyzer',
-  'sumneko_lua',
-})
-
 -- Fix Undefined global 'vim'
 lsp.configure('sumneko_lua', {
   settings = {

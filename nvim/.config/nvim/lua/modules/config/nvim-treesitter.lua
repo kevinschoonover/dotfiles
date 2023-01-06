@@ -4,7 +4,7 @@ vim.fn.mkdir(parser_install_dir, "p")
 vim.opt.runtimepath:append(parser_install_dir)
 
 nvim_treesitter.setup({
-  ensure_installed = "all", -- "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = {"rust", "typescript", "c", "go"}, -- "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   indent = {
     enable = true,
   },

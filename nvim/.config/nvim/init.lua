@@ -28,7 +28,10 @@ vim.opt.shiftround = true
 vim.opt.expandtab = true
 
 -- use system clipboard
-vim.opt.clipboard = "unnamedplus"
+-- WSL takes forever to setup the system clipboard
+if (vim.fn.hostname() ~= "DESKTOP-M773RCT") then
+  vim.opt.clipboard = "unnamedplus"
+end
 
 --Save undo history
 vim.opt.undofile = true
