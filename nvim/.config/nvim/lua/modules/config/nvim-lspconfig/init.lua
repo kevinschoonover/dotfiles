@@ -39,6 +39,20 @@ lsp.configure('yamlls', {
   }
 })
 
+lsp.configure('rust_analyzer', {
+  settings = {
+    ['rust-analyzer'] = {
+      checkOnSave = {
+        allFeatures = true,
+        overrideCommand = {
+          'cargo', 'clippy', '--workspace', '--message-format=json',
+          '--all-targets', '--all-features'
+        }
+      }
+    }
+  }
+})
+
 lsp.on_attach(function(client, _)
   if client.server_capabilities.documentFormattingProvider then
     vim.cmd([[
