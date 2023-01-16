@@ -14,7 +14,18 @@ require("packer").startup(function(use)
   -- Packer can manage itself
   use("wbthomason/packer.nvim")
 
-  use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+  use { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      pcall(require('nvim-treesitter.install').update { with_sync = true })
+    end,
+  }
+
+  use { -- Additional text objects via treesitter
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    after = 'nvim-treesitter',
+  }
+
   use("nvim-treesitter/playground")
 
   -- Fuzzy Finder (files, lsp, etc)
