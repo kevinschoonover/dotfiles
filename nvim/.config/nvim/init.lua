@@ -21,6 +21,14 @@ vim.o.mouse = "a"
 --Enable break indent
 vim.o.breakindent = true
 
+-- relative line number except for the current number
+vim.opt.relativenumber = true
+vim.opt.number = true
+
+vim.opt.scrolloff = 8
+
+vim.opt.colorcolumn = "80"
+
 -- tab control
 vim.opt.smarttab = true
 vim.opt.tabstop = 2
