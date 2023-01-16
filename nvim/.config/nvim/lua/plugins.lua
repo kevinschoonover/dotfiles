@@ -31,6 +31,10 @@ require("packer").startup(function(use)
   use 'numToStr/Comment.nvim' -- "gc" to comment visual regions/lines
   use 'tpope/vim-sleuth' -- Detect tabstop and shiftwidth automatically
 
+
+  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
+  use { 'leoluz/nvim-dap-go', requires = { "mfussenegger/nvim-dap" } }
+
   use {
     'VonHeikemen/lsp-zero.nvim',
     requires = {
