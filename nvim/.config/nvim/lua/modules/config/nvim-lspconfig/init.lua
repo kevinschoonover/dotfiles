@@ -39,6 +39,14 @@ lsp.configure('yamlls', {
   }
 })
 
+lsp.configure('gopls', {
+  settings = {
+    gopls = {
+      staticcheck = true
+    },
+  }
+})
+
 lsp.configure('rust_analyzer', {
   settings = {
     ['rust-analyzer'] = {
