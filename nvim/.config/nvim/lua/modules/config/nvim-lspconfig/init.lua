@@ -1,7 +1,6 @@
-local lsp = require("lsp-zero")
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-lsp.on_attach(function(client, bufnr)
+local on_attach = function(client, bufnr)
   if client.server_capabilities.documentFormattingProvider then
     vim.cmd([[
       augroup Format
@@ -45,12 +44,13 @@ lsp.on_attach(function(client, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
-end)
+end
 
 require('fidget').setup()
 require('neodev').setup()
 
 require('lspconfig').lua_ls.setup({
+  on_attach = on_attach,
   capabilities = capabilities,
 
   settings = {
@@ -68,6 +68,7 @@ require('lspconfig').lua_ls.setup({
 
 -- Pass arguments to a language server
 require("lspconfig").jsonls.setup({
+  on_attach = on_attach,
   capabilities = capabilities,
 
   settings = {
@@ -79,6 +80,7 @@ require("lspconfig").jsonls.setup({
 })
 
 require("lspconfig").yamlls.setup({
+  on_attach = on_attach,
   capabilities = capabilities,
 
   settings = {
@@ -90,6 +92,7 @@ require("lspconfig").yamlls.setup({
 })
 
 require("lspconfig").gopls.setup({
+  on_attach = on_attach,
   capabilities = capabilities,
 
   settings = {
@@ -100,6 +103,7 @@ require("lspconfig").gopls.setup({
 })
 
 require("lspconfig").rust_analyzer.setup({
+  on_attach = on_attach,
   capabilities = capabilities,
 
   settings = {
@@ -115,9 +119,10 @@ require("lspconfig").rust_analyzer.setup({
   }
 })
 
-require("lspconfig").rnix.setup({})
-
-lsp.setup()
+require("lspconfig").rnix.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 
 vim.diagnostic.config({
   virtual_text = true
@@ -127,32 +132,3 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
-local null_ls = require("null-ls")
-local null_opts = lsp.build_options('null-ls', {})
-local h = require("null-ls.helpers")
-local methods = require("null-ls.methods")
-
-local hclfmt = h.make_builtin({
-  name = "hclfmt",
-  meta = {
-    url = "https://pkg.go.dev/github.com/hashicorp/hcl/v2@v2.15.0/cmd/hclfmt",
-    description = "The hclfmt command rewrites `hcl` configuration files to a canonical format and style.",
-  },
-  method = methods.internal.FORMATTING,
-  filetypes = { "hcl" },
-  generator_opts = {
-    command = "hclfmt",
-    to_stdin = true,
-  },
-  factory = h.formatter_factory,
-})
-
-null_ls.setup({
-  on_attach = null_opts.on_attach,
-  sources = {
-    hclfmt,
-    null_ls.builtins.formatting.packer,
-    null_ls.builtins.formatting.black,
-  },
-})

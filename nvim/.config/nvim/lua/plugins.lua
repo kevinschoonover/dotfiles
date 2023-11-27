@@ -1,61 +1,102 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  is_bootstrap = true
-  vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
-  vim.cmd [[packadd packer.nvim]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
--- Only required if you have packer configured as `opt`
-vim.cmd([[packadd packer.nvim]])
+require('lazy').setup({
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+  {
+    'lewis6991/gitsigns.nvim',
+    opts = {
+      -- See `:help gitsigns.txt`
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+      },
+      on_attach = function(bufnr)
+        vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
 
-require("packer").startup(function(use)
-  -- Packer can manage itself
-  use("wbthomason/packer.nvim")
-
-  use { -- Highlight, edit, and navigate code
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      pcall(require('nvim-treesitter.install').update { with_sync = true })
+        -- don't override the built-in and fugitive keymaps
+        local gs = package.loaded.gitsigns
+        vim.keymap.set({ 'n', 'v' }, ']c', function()
+          if vim.wo.diff then
+            return ']c'
+          end
+          vim.schedule(function()
+            gs.next_hunk()
+          end)
+          return '<Ignore>'
+        end, { expr = true, buffer = bufnr, desc = 'Jump to next hunk' })
+        vim.keymap.set({ 'n', 'v' }, '[c', function()
+          if vim.wo.diff then
+            return '[c'
+          end
+          vim.schedule(function()
+            gs.prev_hunk()
+          end)
+          return '<Ignore>'
+        end, { expr = true, buffer = bufnr, desc = 'Jump to previous hunk' })
+      end,
+    }
+  },
+  "nvim-treesitter/playground",
+  "earthly/earthly.vim", -- earthly syntax highlighting
+  {
+    -- Theme inspired by Atom
+    'navarasu/onedark.nvim',
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme 'onedark'
     end,
-  }
-
-  use { -- Additional text objects via treesitter
-    'nvim-treesitter/nvim-treesitter-textobjects',
-    after = 'nvim-treesitter',
-  }
-
-  use("nvim-treesitter/playground")
-
-  -- Fuzzy Finder (files, lsp, etc)
-  use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-
-  -- Git related plugins
-  use 'tpope/vim-fugitive'
-  use 'tpope/vim-rhubarb'
-  use 'lewis6991/gitsigns.nvim'
-
-  use("earthly/earthly.vim")                -- earthly syntax highlighting
-  use 'navarasu/onedark.nvim'               -- Theme inspired by Atom
-  use 'nvim-lualine/lualine.nvim'           -- Fancier statusline
-  use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
-  use 'numToStr/Comment.nvim'               -- "gc" to comment visual regions/lines
-  use 'tpope/vim-sleuth'                    -- Detect tabstop and shiftwidth automatically
-
-
-  use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
-  use { 'leoluz/nvim-dap-go', requires = { "mfussenegger/nvim-dap" } }
-
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    requires = {
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },
-      { 'williamboman/mason.nvim' },
-      { 'williamboman/mason-lspconfig.nvim' },
-
-      -- nvim
+  },
+  'nvim-lualine/lualine.nvim',           -- Fancier statusline
+  'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
+  'numToStr/Comment.nvim',               -- "gc" to comment visual regions/lines
+  'tpope/vim-sleuth',                    -- Detect tabstop and shiftwidth automatically
+  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
+  { 'leoluz/nvim-dap-go',   dependencies = { "mfussenegger/nvim-dap" } },
+  {
+    -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    build = ':TSUpdate',
+  },
+  {
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      -- Fuzzy Finder Algorithm which requires local dependencies to be built.
+      -- Only load if `make` is available. Make sure you have the system
+      -- requirements installed.
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        -- NOTE: If you are having trouble with this installation,
+        --       refer to the README for telescope-fzf-native for more instructions.
+        build = 'make',
+        cond = function()
+          return vim.fn.executable 'make' == 1
+        end,
+      },
+    },
+  },
+  {
+    'neovim/nvim-lspconfig',
+    dependencies = {
       { 'folke/neodev.nvim' },
 
       -- custom LSPs based on binaries
@@ -64,7 +105,7 @@ require("packer").startup(function(use)
       { "b0o/schemastore.nvim" },
 
       -- Useful status updates for LSP
-      { 'j-hui/fidget.nvim' },
+      { 'j-hui/fidget.nvim',              opts = {} },
 
       -- Autocompletion
       { 'hrsh7th/cmp-nvim-lsp' },
@@ -75,24 +116,7 @@ require("packer").startup(function(use)
       { 'hrsh7th/cmp-vsnip' },
       { 'hrsh7th/vim-vsnip' },
       { 'hrsh7th/nvim-cmp' },
-      { 'petertriho/cmp-git',               requires = 'nvim-lua/plenary.nvim' },
+      { 'petertriho/cmp-git',             dependencies = 'nvim-lua/plenary.nvim' }
     }
-  }
-
-  if is_bootstrap then
-    require('packer').sync()
-  end
-end)
-
--- When we are bootstrapping a configuration, it doesn't
--- make sense to execute the rest of the init.lua.
---
--- You'll need to restart nvim, and then it will work.
-if is_bootstrap then
-  print '=================================='
-  print '    Plugins are being installed'
-  print '    Wait until Packer completes,'
-  print '       then restart nvim'
-  print '=================================='
-  return
-end
+  },
+}, {})
