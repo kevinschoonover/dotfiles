@@ -119,6 +119,17 @@ require("lspconfig").rust_analyzer.setup({
   }
 })
 
+require 'lspconfig'.tsserver.setup {}
+
+require("lspconfig").eslint.setup {
+  on_attach = function(_, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+}
+
 require("lspconfig").rnix.setup({
   on_attach = on_attach,
   capabilities = capabilities,
