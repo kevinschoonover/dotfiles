@@ -121,14 +121,14 @@ require("lspconfig").rust_analyzer.setup({
 
 require 'lspconfig'.tsserver.setup {}
 
-require("lspconfig").eslint.setup {
-  on_attach = function(_, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
-  end,
-}
+-- require("lspconfig").eslint.setup {
+--   on_attach = function(_, bufnr)
+--     vim.api.nvim_create_autocmd("BufWritePre", {
+--       buffer = bufnr,
+--       command = "EslintFixAll",
+--     })
+--   end,
+-- }
 
 require("lspconfig").rnix.setup({
   on_attach = on_attach,
@@ -143,3 +143,14 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+local null_ls = require("null-ls")
+
+null_ls.setup({
+  on_attach = on_attach,
+  sources = {
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.formatting.eslint_d,
+    null_ls.builtins.code_actions.eslint_d,
+  },
+})
