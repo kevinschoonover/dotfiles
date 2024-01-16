@@ -5,7 +5,7 @@ local on_attach = function(client, bufnr)
     vim.cmd([[
       augroup Format
         au! * <buffer>
-        au BufWritePre <buffer> lua vim.lsp.buf.format()
+        au BufWritePre <buffer> lua vim.lsp.buf.format { timeout_ms = 5000 }
       augroup END
     ]])
   end

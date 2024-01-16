@@ -281,7 +281,10 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+m move workspace to output left
 
 bindsym --release Print exec "grim - | wl-copy && notify-send 'Screenshot Taken & Saved to Clipboard'"
-bindsym --release Shift+Print exec exec grim -g "$(slurp)" - | wl-copy && notify-send 'Saved to Clipboard'
+
+for_window [title="imv.*screenshot"] floating enable
+for_window [title="imv.*screenshot"] fullscreen on
+bindsym --release Shift+Print exec ~/.config/sway/screenshot.sh && notify-send 'Saved to Clipboard'
 
 ###
 # Start-up Applications.
