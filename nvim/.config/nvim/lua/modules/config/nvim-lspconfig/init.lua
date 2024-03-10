@@ -130,7 +130,7 @@ require 'lspconfig'.tsserver.setup {}
 --   end,
 -- }
 
-require("lspconfig").rnix.setup({
+require("lspconfig").nil_ls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })

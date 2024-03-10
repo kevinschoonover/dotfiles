@@ -25,6 +25,7 @@ set $menu bemenu-run -m 1 -n --fn $uifont -b -p "▶" --tf "$prompt" --hf "$high
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg ~/.config/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output eDP-1 scale 1.1
 #
 # Example configuration:
 #
@@ -284,7 +285,8 @@ bindsym --release Print exec "grim - | wl-copy && notify-send 'Screenshot Taken 
 
 for_window [title="imv.*screenshot"] floating enable
 for_window [title="imv.*screenshot"] fullscreen on
-bindsym --release Shift+Print exec ~/.config/sway/screenshot.sh && notify-send 'Saved to Clipboard'
+# bindsym --release Shift+Print exec ~/.config/sway/screenshot.sh && notify-send 'Saved to Clipboard'
+bindsym --release Shift+Print exec grim -g "$(slurp)" - | wl-copy && notify-send 'Saved to Clipboard'
 
 ###
 # Start-up Applications.
