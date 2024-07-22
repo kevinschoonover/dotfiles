@@ -63,10 +63,9 @@ require('lazy').setup({
   },
   'nvim-lualine/lualine.nvim',           -- Fancier statusline
   'lukas-reineke/indent-blankline.nvim', -- Add indentation guides even on blank lines
-  'numToStr/Comment.nvim',               -- "gc" to comment visual regions/lines
   'tpope/vim-sleuth',                    -- Detect tabstop and shiftwidth automatically
-  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
-  { 'leoluz/nvim-dap-go',   dependencies = { "mfussenegger/nvim-dap" } },
+  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+  { 'leoluz/nvim-dap-go',   dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
