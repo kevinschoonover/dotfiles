@@ -97,7 +97,21 @@ require("lspconfig").gopls.setup({
 
   settings = {
     gopls = {
-      staticcheck = true
+      semanticTokens = true,
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+      gofumpt = true,
     },
   }
 })
@@ -119,7 +133,9 @@ require("lspconfig").rust_analyzer.setup({
   }
 })
 
-require 'lspconfig'.tsserver.setup {}
+require 'lspconfig'.ts_ls.setup {}
+
+require 'lspconfig'.bashls.setup {}
 
 -- require("lspconfig").eslint.setup {
 --   on_attach = function(_, bufnr)
@@ -131,6 +147,21 @@ require 'lspconfig'.tsserver.setup {}
 -- }
 
 require("lspconfig").nil_ls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
+require 'lspconfig'.marksman.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
+require 'lspconfig'.cmake.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
+require 'lspconfig'.ccls.setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })
