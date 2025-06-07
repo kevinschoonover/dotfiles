@@ -46,6 +46,13 @@ local on_attach = function(client, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+vim.filetype.add {
+  pattern = {
+    ['openapi.*%.ya?ml'] = 'yaml.openapi',
+    ['openapi.*%.json'] = 'json.openapi',
+  },
+}
+
 require('fidget').setup()
 require('neodev').setup()
 
@@ -162,6 +169,11 @@ require 'lspconfig'.cmake.setup({
 })
 
 require 'lspconfig'.ccls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+
+require 'lspconfig'.vacuum.setup({
   on_attach = on_attach,
   capabilities = capabilities,
 })
