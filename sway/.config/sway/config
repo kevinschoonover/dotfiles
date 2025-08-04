@@ -25,7 +25,7 @@ set $menu bemenu-run -m 1 -n --fn $uifont -b -p "▶" --tf "$prompt" --hf "$high
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg ~/.config/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output eDP-1 scale_filter smart scale 1.5
+output eDP-1 scale_filter smart scale 1.1
 output DP-7 pos 0 0
 # Example configuration:
 #
