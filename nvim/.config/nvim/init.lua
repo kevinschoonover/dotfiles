@@ -3,7 +3,7 @@
 
 require("plugins")
 
-function is_directory(path)
+local function is_directory(path)
   local stat = vim.loop.fs_stat(path)
   return stat and stat.type == "file" or false
 end

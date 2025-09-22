@@ -53,137 +53,136 @@ vim.filetype.add {
   },
 }
 
-require('fidget').setup()
+require('fidget').setup({})
 require('neodev').setup()
 
-require('lspconfig').lua_ls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
+local lsps = {
+  { "lua_ls", {
+    on_attach = on_attach,
+    capabilities = capabilities,
 
-  settings = {
-    Lua = {
-      diagnostics = {
-        globals = { 'vim' }
-      },
-      workspace = {
-        -- checkThirdParty = "Disable",
-        checkThirdParty = false,
-      }
-    }
-  }
-})
-
--- Pass arguments to a language server
-require("lspconfig").jsonls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-
-  settings = {
-    json = {
-      schemas = require('schemastore').json.schemas(),
-      validate = { enable = true },
-    },
-  }
-})
-
-require("lspconfig").yamlls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-
-  settings = {
-    yaml = {
-      schemas = require('schemastore').json.schemas(),
-      validate = { enable = true },
-    },
-  }
-})
-
-require("lspconfig").gopls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-
-  settings = {
-    gopls = {
-      semanticTokens = true,
-      analyses = {
-        unusedparams = true,
-      },
-      staticcheck = true,
-      hints = {
-        assignVariableTypes = true,
-        compositeLiteralFields = true,
-        compositeLiteralTypes = true,
-        constantValues = true,
-        functionTypeParameters = true,
-        parameterNames = true,
-        rangeVariableTypes = true,
-      },
-      gofumpt = true,
-    },
-  }
-})
-
-require("lspconfig").rust_analyzer.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-
-  settings = {
-    ['rust-analyzer'] = {
-      checkOnSave = {
-        allFeatures = true,
-        overrideCommand = {
-          'cargo', 'clippy', '--workspace', '--message-format=json',
-          '--all-targets', '--all-features'
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = { 'vim' }
+        },
+        workspace = {
+          -- checkThirdParty = "Disable",
+          checkThirdParty = false,
         }
       }
     }
-  }
-})
+  } },
+  { "jsonls", {
+    on_attach = on_attach,
+    capabilities = capabilities,
 
-require 'lspconfig'.ts_ls.setup {}
+    settings = {
+      json = {
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
+      },
+    }
+  } },
+  { "yamlls", {
+    on_attach = on_attach,
+    capabilities = capabilities,
 
-require 'lspconfig'.bashls.setup {}
+    settings = {
+      yaml = {
+        schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
+      },
+    }
+  } },
+  { "gopls", {
+    on_attach = on_attach,
+    capabilities = capabilities,
 
--- require("lspconfig").eslint.setup {
---   on_attach = function(_, bufnr)
---     vim.api.nvim_create_autocmd("BufWritePre", {
---       buffer = bufnr,
---       command = "EslintFixAll",
---     })
---   end,
--- }
+    settings = {
+      gopls = {
+        semanticTokens = true,
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+        hints = {
+          assignVariableTypes = true,
+          compositeLiteralFields = true,
+          compositeLiteralTypes = true,
+          constantValues = true,
+          functionTypeParameters = true,
+          parameterNames = true,
+          rangeVariableTypes = true,
+        },
+        gofumpt = true,
+      },
+    }
+  } },
+  { "rust_analyzer", {
+    on_attach = on_attach,
+    capabilities = capabilities,
 
-require("lspconfig").nil_ls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+    settings = {
+      ['rust-analyzer'] = {
+        checkOnSave = {
+          allFeatures = true,
+          overrideCommand = {
+            'cargo', 'clippy', '--workspace', '--message-format=json',
+            '--all-targets', '--all-features'
+          }
+        }
+      }
+    }
+  } },
+  { "ts_ls", {
+    on_attach = on_attach,
+    capabilities = capabilities,
 
-require 'lspconfig'.marksman.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+  } },
+  { "bashls", {
+    on_attach = on_attach,
+    capabilities = capabilities,
 
-require 'lspconfig'.cmake.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+  } },
+  { "nil_ls", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  } },
+  { "marksman", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  } },
+  { "cmake", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  } },
+  { "ccls", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  } },
+  { "vacuum", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  } },
+}
 
-require 'lspconfig'.ccls.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
-
-require 'lspconfig'.vacuum.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-})
+for _, lsp in pairs(lsps) do
+  local name, config = lsp[1], lsp[2]
+  vim.lsp.enable(name)
+  if config then
+    vim.lsp.config(name, config)
+  end
+end
 
 vim.diagnostic.config({
   virtual_text = true
 })
 
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end,
+  { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end,
+  { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
