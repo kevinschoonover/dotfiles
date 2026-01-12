@@ -292,9 +292,11 @@ bindsym --release Shift+Print exec grim -g "$(slurp)" - | wl-copy && notify-send
 # Start-up Applications.
 ###
 exec swaymsg 'workspace $tag1; exec kitty'
+exec swagmsg 'workspace $tag7; exec spotify'
 exec swaymsg 'workspace $tag9; exec google-chrome-stable'
 # work around for wayland + nvidia rendering blank screen for discord
 # https://github.com/NixOS/nixpkgs/issues/159267
-exec swaymsg 'workspace $tag10; exec discord --use-gl=desktop'
+exec swaymsg 'workspace $tag10; exec discord'
+exec swagmsg 'workspace $tag10; exec slack'
 
 include /etc/sway/config.d/*

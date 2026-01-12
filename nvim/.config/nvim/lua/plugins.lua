@@ -99,16 +99,19 @@ require('lazy').setup({
     dependencies = {
       { 'folke/neodev.nvim' },
 
-      -- custom LSPs based on binaries
-      { 'jose-elias-alvarez/null-ls.nvim' },
       -- schemastore support for autocompletion of json
       { "b0o/schemastore.nvim" },
 
       -- Useful status updates for LSP
-      { 'j-hui/fidget.nvim',              opts = {} },
+      { 'j-hui/fidget.nvim',   opts = {} },
 
       -- running format on save
-      { 'nvimtools/none-ls.nvim' },
+      {
+        "nvimtools/none-ls.nvim",
+        dependencies = {
+          "nvimtools/none-ls-extras.nvim",
+        },
+      },
 
       -- Autocompletion
       { 'hrsh7th/cmp-nvim-lsp' },
@@ -119,7 +122,7 @@ require('lazy').setup({
       { 'hrsh7th/cmp-vsnip' },
       { 'hrsh7th/vim-vsnip' },
       { 'hrsh7th/nvim-cmp' },
-      { 'petertriho/cmp-git',             dependencies = 'nvim-lua/plenary.nvim' }
+      { 'petertriho/cmp-git',  dependencies = 'nvim-lua/plenary.nvim' }
     }
   },
 }, {})

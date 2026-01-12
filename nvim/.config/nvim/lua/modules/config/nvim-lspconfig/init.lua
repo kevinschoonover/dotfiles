@@ -56,6 +56,7 @@ vim.filetype.add {
 require('fidget').setup({})
 require('neodev').setup()
 
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 local lsps = {
   { "lua_ls", {
     on_attach = on_attach,
@@ -165,6 +166,11 @@ local lsps = {
     on_attach = on_attach,
     capabilities = capabilities,
   } },
+  {
+    "golangci_lint_ls", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  } },
 }
 
 for _, lsp in pairs(lsps) do
@@ -191,8 +197,8 @@ local null_ls = require("null-ls")
 null_ls.setup({
   on_attach = on_attach,
   sources = {
-    null_ls.builtins.diagnostics.eslint_d,
-    null_ls.builtins.formatting.eslint_d,
-    null_ls.builtins.code_actions.eslint_d,
+    require("none-ls.diagnostics.eslint_d"),
+    require("none-ls.formatting.eslint_d"),
+    require("none-ls.code_actions.eslint_d"),
   },
 })

@@ -46,7 +46,7 @@
 [url "https://bitbucket.org/"]
     insteadOf = bb:
 [user]
-	email = me@kschoon.me
+	email = github@kschoon.me
 	name = Kevin Schoonover
 [pull]
 	rebase = true
@@ -70,3 +70,5 @@
 
 [diff]
 	colorMoved = default
+[commit]
+	gpgsign = true
