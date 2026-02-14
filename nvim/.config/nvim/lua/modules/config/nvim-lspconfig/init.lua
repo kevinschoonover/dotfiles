@@ -1,13 +1,36 @@
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local on_attach = function(client, bufnr)
+  if client.name == "ts_ls" then
+    -- disable tslint formatting in favor of other formatters
+    client.server_capabilities.documentFormattingProvider = false
+  end
+
+  -- if client:supports_method(vim.lsp.protocol.Methods.textDocument_inlineCompletion, bufnr) then
+  --   vim.lsp.inline_completion.enable(true, { bufnr = bufnr })
+
+  --   vim.keymap.set(
+  --     'i',
+  --     '<C-F>',
+  --     vim.lsp.inline_completion.get,
+  --     { desc = 'LSP: accept inline completion', buffer = bufnr }
+  --   )
+  --   vim.keymap.set(
+  --     'i',
+  --     '<C-G>',
+  --     vim.lsp.inline_completion.select,
+  --     { desc = 'LSP: switch inline completion', buffer = bufnr }
+  --   )
+  -- end
+
+
   if client.server_capabilities.documentFormattingProvider then
-    vim.cmd([[
-      augroup Format
-        au! * <buffer>
-        au BufWritePre <buffer> lua vim.lsp.buf.format { timeout_ms = 5000 }
-      augroup END
-    ]])
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      callback = function()
+        vim.lsp.buf.format { timeout_ms = 5000 }
+      end,
+    })
   end
 
   local nmap = function(keys, func, desc)
@@ -52,6 +75,8 @@ vim.filetype.add {
     ['openapi.*%.json'] = 'json.openapi',
   },
 }
+
+local eslint_base_on_attach = vim.lsp.config.eslint.on_attach
 
 require('fidget').setup({})
 require('neodev').setup()
@@ -166,11 +191,42 @@ local lsps = {
     on_attach = on_attach,
     capabilities = capabilities,
   } },
+  { "eslint", {
+    on_attach = function(client, bufnr)
+      if not eslint_base_on_attach then
+        error("eslint on_attach function not found")
+        return
+      end
+
+      on_attach(client, bufnr)
+      eslint_base_on_attach(client, bufnr)
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = bufnr,
+        callback = function()
+          vim.cmd.LspEslintFixAll()
+        end,
+      })
+    end,
+    capabilities = capabilities,
+  } },
   {
     "golangci_lint_ls", {
     on_attach = on_attach,
     capabilities = capabilities,
   } },
+  { "ruff", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  } },
+  { "basedpyright", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  } },
+  -- {
+  --   "copilot", {
+  --   on_attach = on_attach,
+  --   capabilities = capabilities,
+  -- } },
 }
 
 for _, lsp in pairs(lsps) do
@@ -191,14 +247,3 @@ vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = tr
   { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
-
-local null_ls = require("null-ls")
-
-null_ls.setup({
-  on_attach = on_attach,
-  sources = {
-    require("none-ls.diagnostics.eslint_d"),
-    require("none-ls.formatting.eslint_d"),
-    require("none-ls.code_actions.eslint_d"),
-  },
-})

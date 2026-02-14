@@ -105,14 +105,6 @@ require('lazy').setup({
       -- Useful status updates for LSP
       { 'j-hui/fidget.nvim',   opts = {} },
 
-      -- running format on save
-      {
-        "nvimtools/none-ls.nvim",
-        dependencies = {
-          "nvimtools/none-ls-extras.nvim",
-        },
-      },
-
       -- Autocompletion
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' },
