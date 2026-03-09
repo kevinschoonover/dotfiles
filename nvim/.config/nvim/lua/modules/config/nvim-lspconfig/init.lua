@@ -1,4 +1,4 @@
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('blink.cmp').get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local on_attach = function(client, bufnr)
   if client.name == "ts_ls" then
@@ -222,11 +222,11 @@ local lsps = {
     on_attach = on_attach,
     capabilities = capabilities,
   } },
-  -- {
-  --   "copilot", {
-  --   on_attach = on_attach,
-  --   capabilities = capabilities,
-  -- } },
+  {
+    "copilot", {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  } },
 }
 
 for _, lsp in pairs(lsps) do
